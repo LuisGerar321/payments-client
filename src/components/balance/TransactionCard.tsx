@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import { IProps } from "../../interfaces";
-import { Avatar, Box, Card, CardContent, CardHeader, Paper, Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, CardHeader, Skeleton, Typography } from "@mui/material";
 import { config } from "../../config";
 
 interface ITransactionsProps extends IProps {
@@ -9,15 +9,17 @@ interface ITransactionsProps extends IProps {
   icon: ReactNode;
   title: string;
   amount: number;
+  isLoading?: boolean;
 }
 
 const { dark } = config.palleteColor;
 
 export const TransactionCard: FC<ITransactionsProps> = (props: ITransactionsProps) => {
-  const { gradientColor, icon, iconColor, title, amount } = props;
+  const { gradientColor, icon, iconColor, title, amount, isLoading } = props;
 
   const gradientString = `linear-gradient(to bottom, ${gradientColor.map((color) => color).join(", ")})`;
   const iconSize = 60;
+
   return (
     <Card
       sx={{
@@ -41,17 +43,20 @@ export const TransactionCard: FC<ITransactionsProps> = (props: ITransactionsProp
             {icon}
           </Avatar>
         }
-      ></CardHeader>
+      />
       <CardContent>
         <Typography color="white" variant="h5" sx={{ mt: -1 }} fontWeight="bold">
           {title}
         </Typography>
-        <Box sx={{ mt: 4, display: "flex" }}>
-          <Typography color={dark} fontWeight="bold" variant="h5">
-            $
-          </Typography>
+        <Box sx={{ mt: 4, display: "flex", alignItems: "center" }}>
+          {!isLoading && (
+            <Typography color={dark} fontWeight="bold" variant="h5">
+              $
+            </Typography>
+          )}
+
           <Typography color={dark} fontWeight="bold" variant="h3">
-            {amount}
+            {isLoading ? <Skeleton width={120} /> : amount}
           </Typography>
         </Box>
       </CardContent>
