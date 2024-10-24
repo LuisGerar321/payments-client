@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import { IProps } from "../../interfaces";
 import { Avatar, Box, Card, CardContent, CardHeader, Paper, Typography } from "@mui/material";
+import { config } from "../../config";
 
 interface ITransactionsProps extends IProps {
   gradientColor: string[];
@@ -9,6 +10,8 @@ interface ITransactionsProps extends IProps {
   title: string;
   amount: number;
 }
+
+const { dark } = config.palleteColor;
 
 export const TransactionCard: FC<ITransactionsProps> = (props: ITransactionsProps) => {
   const { gradientColor, icon, iconColor, title, amount } = props;
@@ -44,10 +47,10 @@ export const TransactionCard: FC<ITransactionsProps> = (props: ITransactionsProp
           {title}
         </Typography>
         <Box sx={{ mt: 4, display: "flex" }}>
-          <Typography fontWeight="bold" variant="h5">
+          <Typography color={dark} fontWeight="bold" variant="h5">
             $
           </Typography>
-          <Typography fontWeight="bold" variant="h3">
+          <Typography color={dark} fontWeight="bold" variant="h3">
             {amount}
           </Typography>
         </Box>
