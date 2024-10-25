@@ -1,7 +1,6 @@
 import { FC, ReactNode } from "react";
 import { IProps } from "../../interfaces";
 import { Button, Typography } from "@mui/material";
-import PaymentsIcon from "@mui/icons-material/Payments";
 
 interface ICustomButtomProps extends IProps {
   color: string;

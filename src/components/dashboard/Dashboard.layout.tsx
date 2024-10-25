@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { IProps } from "../../interfaces";
+import { IProps, ISelfBalance } from "../../interfaces";
 import { Box, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import { config } from "../../config";
 import { TransactionCard } from "./TransactionCard.component";
@@ -8,18 +8,39 @@ import ReceiveMoneyIcon from "@mui/icons-material/SwipeDownAlt";
 import { DashboardButtoms } from "./Buttoms.component";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
+import gateway from "../../config/gateway";
+import { updateBalance } from "../../redux/balanceSlice";
 
 interface IDashboardProps extends IProps {}
 
-const { primaryGradient, secondaryGradient, primaryIcon, secondaryIcon, dark, primary, secondary } = config.palleteColor;
+const { primaryGradient, secondaryGradient, primaryIcon, secondaryIcon, dark } = config.palleteColor;
 
 export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
+  const token = localStorage.getItem("token");
+
   const dispatch: AppDispatch = useDispatch();
   const { balance, sent, received } = useSelector((state: RootState) => state.balance);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setIsLoading(true);
+    gateway
+      .get("/transactions/self-balance", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((axiosResponse) => {
+        const res = axiosResponse.data;
+        const data: ISelfBalance = res.data;
+        dispatch(updateBalance(data));
+      })
+      .catch((err) => {})
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [token]);
 
   return (
     <Paper
@@ -50,7 +71,7 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
                   <Typography variant="h5" fontWeight="bold" color={dark} marginRight={0.5}>
                     $
                   </Typography>
-                  {"amount"}
+                  {balance}
                 </Box>
               </Typography>
             ) : (
@@ -65,8 +86,15 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
 
         <Grid item md={8} xs={12}>
           <Box display="flex" width="100%" sx={{ justifyContent: "center" }}>
-            <TransactionCard isLoading={true} title={"Received"} amount={300} gradientColor={primaryGradient} icon={<ReceiveMoneyIcon fontSize="large"></ReceiveMoneyIcon>} iconColor={primaryIcon} />
-            <TransactionCard title={"Sent"} amount={300} gradientColor={secondaryGradient} icon={<SentMoneyIcon fontSize="large"></SentMoneyIcon>} iconColor={secondaryIcon} />
+            <TransactionCard
+              isLoading={isLoading}
+              title={"Received"}
+              amount={received}
+              gradientColor={primaryGradient}
+              icon={<ReceiveMoneyIcon fontSize="large"></ReceiveMoneyIcon>}
+              iconColor={primaryIcon}
+            />
+            <TransactionCard title={"Sent"} amount={sent} gradientColor={secondaryGradient} icon={<SentMoneyIcon fontSize="large"></SentMoneyIcon>} iconColor={secondaryIcon} />
           </Box>
         </Grid>
       </Grid>
