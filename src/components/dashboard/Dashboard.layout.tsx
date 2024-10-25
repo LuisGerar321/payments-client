@@ -51,7 +51,7 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
           xl: "1200px",
         },
         height: {
-          // md: "300px",
+          md: "400px",
         },
         m: 4,
         mt: 2,
@@ -85,8 +85,8 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
           </Box>
         </Grid>
 
-        <Grid item md={8} xs={12}>
-          <Box display="flex" width="100%" sx={{ justifyContent: "center" }}>
+        <Grid item md={8} xs={12} display="flex" alignItems="center">
+          <Box display="flex" width="100%" height="70%" sx={{ justifyContent: "center" }}>
             <TransactionCard
               isLoading={isLoading}
               title={"Received"}

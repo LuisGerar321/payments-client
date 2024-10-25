@@ -28,15 +28,14 @@ export const TransactionCard: FC<ITransactionsProps> = (props: ITransactionsProp
           sm: "200px",
         },
         height: {
-          xs: "100px",
-          sm: "260px",
+          xs: "100%",
         },
         m: 4,
+        mt: 0,
         backgroundImage: gradientString,
         borderRadius: 7,
         boxShadow: "1px 2px 8px rgba(0, 0, 0, 0.2)",
         pl: 3,
-        pt: 3,
       }}
     >
       <CardHeader

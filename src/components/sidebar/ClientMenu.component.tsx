@@ -20,7 +20,7 @@ export const ClientMenu: FC<IClientMenuProps> = (props: IClientMenuProps) => {
 
   return (
     <>
-      <Box sx={{ display: "flex", width: "200px", m: 0 }}>
+      <Box sx={{ display: "flex", width: "200px", maxHeight: "60px", backgroundColor: "pink", m: 0 }}>
         <IconButton onClick={handleClick} sx={{ width: 56, height: 56 }}>
           <Avatar
             sx={{
