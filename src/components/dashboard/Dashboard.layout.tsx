@@ -54,6 +54,7 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
           // md: "300px",
         },
         m: 4,
+        mt: 2,
         borderRadius: 7,
         boxShadow: "1px 2px 8px rgba(0, 0, 0, 0.2)",
         display: "flex",
