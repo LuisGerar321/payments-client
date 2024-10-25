@@ -46,3 +46,36 @@ export interface ISelfBalance {
   sent: number;
   received: number;
 }
+
+export enum ETransactionSection {
+  SENT = "sent",
+  RECEIVED = "received",
+}
+
+export interface IClientBasicInfo {
+  id: number;
+  name: string;
+  email: string;
+}
+export interface ITransaction {
+  id: number;
+  senderId: number;
+  recipientId: number;
+  externalPaymentRef: string | null;
+  amount: number;
+  type: ETransactionType;
+  status: ETransactionStatus;
+  description: string | null;
+  createdAt: string;
+  updatedAt: string;
+  recipient: IClientBasicInfo;
+  sender: IClientBasicInfo;
+}
+
+export interface ITransactionState {
+  section: ETransactionSection;
+  transactions: {
+    sent: ITransaction[];
+    received: ITransaction[];
+  };
+}

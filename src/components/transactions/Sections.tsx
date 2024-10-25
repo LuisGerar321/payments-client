@@ -1,7 +1,10 @@
 import { FC, useState } from "react";
-import { IProps } from "../../interfaces";
+import { ETransactionSection, IProps } from "../../interfaces";
 import { config } from "../../config";
 import { Box, Button, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { updateTransactionSection } from "../../redux/transactionSlice";
 
 interface ISectionTransactionProps extends IProps {}
 
@@ -10,13 +13,15 @@ const maxOpacity = 0.4;
 const minOpacity = 0.7;
 
 export const SectionTransaction: FC<ISectionTransactionProps> = (props: ISectionTransactionProps) => {
-  const [selected, setSelected] = useState<"received" | "sent" | null>("received");
+  const [selected, setSelected] = useState<ETransactionSection>(ETransactionSection.RECEIVED);
+  const dispatch: AppDispatch = useDispatch();
 
-  const handleButtonClick = (type: "received" | "sent") => {
+  const handleButtonClick = (type: ETransactionSection) => {
     setSelected(type);
+    dispatch(updateTransactionSection(type));
   };
 
-  const getTypographyStyles = (type: "received" | "sent") => ({
+  const getTypographyStyles = (type: ETransactionSection) => ({
     color: palleteColor.dark,
     textTransform: "none",
     opacity: selected === type ? minOpacity : maxOpacity,
@@ -26,7 +31,7 @@ export const SectionTransaction: FC<ISectionTransactionProps> = (props: ISection
     textAlign: "left",
   });
 
-  const renderLine = (type: "received" | "sent") => (
+  const renderLine = (type: ETransactionSection) => (
     <Box
       sx={{
         width: 40,
@@ -44,13 +49,13 @@ export const SectionTransaction: FC<ISectionTransactionProps> = (props: ISection
 
   return (
     <Box sx={{ width: "80%", mr: "auto", height: "50px", display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
-      <Button variant="text" onClick={() => handleButtonClick("received")}>
-        <Typography sx={getTypographyStyles("received")}>Received</Typography>
-        {renderLine("received")}
+      <Button variant="text" onClick={() => handleButtonClick(ETransactionSection.RECEIVED)}>
+        <Typography sx={getTypographyStyles(ETransactionSection.RECEIVED)}>Received</Typography>
+        {renderLine(ETransactionSection.RECEIVED)}
       </Button>
-      <Button variant="text" onClick={() => handleButtonClick("sent")}>
-        <Typography sx={getTypographyStyles("sent")}>Sent</Typography>
-        {renderLine("sent")}
+      <Button variant="text" onClick={() => handleButtonClick(ETransactionSection.SENT)}>
+        <Typography sx={getTypographyStyles(ETransactionSection.SENT)}>Sent</Typography>
+        {renderLine(ETransactionSection.SENT)}
       </Button>
     </Box>
   );
