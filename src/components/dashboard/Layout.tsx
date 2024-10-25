@@ -2,10 +2,10 @@ import { FC, useEffect, useState } from "react";
 import { IProps, ISelfBalance } from "../../interfaces";
 import { Box, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import { config } from "../../config";
-import { TransactionCard } from "./TransactionCard.component";
+import { TransactionCardDashboard } from "./TransactionCard";
 import SentMoneyIcon from "@mui/icons-material/SwipeUp";
 import ReceiveMoneyIcon from "@mui/icons-material/SwipeDownAlt";
-import { DashboardButtoms } from "./Buttoms.component";
+import { ButtomDashboard } from "./Buttom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import gateway from "../../config/gateway";
@@ -46,6 +46,7 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
     <Paper
       sx={{
         width: {
+          xs: "350px",
           md: "700px",
           lg: "900px",
           xl: "1200px",
@@ -53,8 +54,9 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
         height: {
           md: "400px",
         },
-        m: 4,
         mt: 2,
+        ml: "auto",
+        mr: "auto",
         borderRadius: 7,
         boxShadow: "1px 2px 8px rgba(0, 0, 0, 0.2)",
         display: "flex",
@@ -81,13 +83,13 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
           </Box>
 
           <Box mt="auto" mr="auto" ml="auto">
-            <DashboardButtoms />
+            <ButtomDashboard />
           </Box>
         </Grid>
 
         <Grid item md={8} xs={12} display="flex" alignItems="center">
           <Box display="flex" width="100%" height="70%" sx={{ justifyContent: "center" }}>
-            <TransactionCard
+            <TransactionCardDashboard
               isLoading={isLoading}
               title={"Received"}
               amount={received}
@@ -95,7 +97,7 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
               icon={<ReceiveMoneyIcon fontSize="large"></ReceiveMoneyIcon>}
               iconColor={primaryIcon}
             />
-            <TransactionCard title={"Sent"} amount={sent} gradientColor={secondaryGradient} icon={<SentMoneyIcon fontSize="large"></SentMoneyIcon>} iconColor={secondaryIcon} />
+            <TransactionCardDashboard title={"Sent"} amount={sent} gradientColor={secondaryGradient} icon={<SentMoneyIcon fontSize="large"></SentMoneyIcon>} iconColor={secondaryIcon} />
           </Box>
         </Grid>
       </Grid>

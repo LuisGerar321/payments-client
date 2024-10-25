@@ -2,13 +2,15 @@ import React, { FC } from "react";
 import { IProps } from "../../interfaces";
 import { config } from "../../config";
 import { Avatar, Box, IconButton, Menu, MenuItem, Typography } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
+import ListIcon from "@mui/icons-material/List";
+import MoneyIcon from "@mui/icons-material/CurrencyExchange";
+import ReportsIcon from "@mui/icons-material/Assessment";
 
-interface IClientMenuProps extends IProps {}
+interface IAppMenuProps extends IProps {}
 
-const { dark, primaryIcon } = config.palleteColor;
+const { palleteColor } = config;
 
-export const ClientMenu: FC<IClientMenuProps> = (props: IClientMenuProps) => {
+export const NavbarMenu: FC<IAppMenuProps> = (props: IAppMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -20,26 +22,22 @@ export const ClientMenu: FC<IClientMenuProps> = (props: IClientMenuProps) => {
 
   return (
     <>
-      <Box sx={{ display: "flex", width: "200px", maxHeight: "60px", backgroundColor: "pink", m: 0 }}>
+      <Box sx={{ display: "flex", width: "200px", maxHeight: "60px", m: "auto", justifyContent: "center" }}>
         <IconButton onClick={handleClick} sx={{ width: 56, height: 56 }}>
           <Avatar
             sx={{
-              backgroundColor: primaryIcon,
+              backgroundColor: palleteColor.secondaryIcon,
+              borderRadius: 3,
+              boxShadow: `0px 4px 8px rgba(250,100,0,0.4)`,
             }}
+            variant="rounded"
           >
-            L
+            <ListIcon></ListIcon>
           </Avatar>
         </IconButton>
-
-        <Typography sx={{ display: { xs: "none", md: "block" } }} fontWeight="bold" variant="body2" color={dark} m="auto">
-          Luis G
-          <Typography variant="body2" sx={{ opacity: 0.6 }}>
-            dojas@gmail.com
-          </Typography>
-        </Typography>
       </Box>
       <Menu
-        id="clientMenu"
+        id="AppMenu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
@@ -53,8 +51,13 @@ export const ClientMenu: FC<IClientMenuProps> = (props: IClientMenuProps) => {
         }}
       >
         <MenuItem onClick={handleClose}>
-          <Typography variant="body1">Log out</Typography>
-          <LogoutIcon fontSize="small" sx={{ ml: 1 }}></LogoutIcon>
+          <MoneyIcon fontSize="small" sx={{ mr: 1 }}></MoneyIcon>
+          <Typography variant="body1">Payments</Typography>
+        </MenuItem>
+
+        <MenuItem onClick={handleClose}>
+          <ReportsIcon fontSize="small" sx={{ mr: 1 }}></ReportsIcon>
+          <Typography variant="body1">Reports</Typography>
         </MenuItem>
       </Menu>
     </>

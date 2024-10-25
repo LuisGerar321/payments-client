@@ -10,7 +10,7 @@ interface IDashboardButtomsProps extends IProps {}
 
 const { primary, secondary } = config.palleteColor;
 const sx = { display: "flex", justifyContent: "center", alignItems: "center" };
-export const DashboardButtoms: FC<IDashboardButtomsProps> = (props: IDashboardButtomsProps) => {
+export const ButtomDashboard: FC<IDashboardButtomsProps> = (props: IDashboardButtomsProps) => {
   return (
     <Grid container>
       <Grid item xs={12} md={6} sx={sx}>

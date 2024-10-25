@@ -11,4 +11,5 @@ export const config = {
     primaryGradient: ["#89B4EC", "#BAC2EC", "#F2D3EE"],
     secondaryGradient: ["#FFA997", "#FFC099", "#FFD79A"],
   },
+  appName: "Villet",
 };

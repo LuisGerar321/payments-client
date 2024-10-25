@@ -5,13 +5,13 @@ import { Button, Typography } from "@mui/material";
 interface ICustomButtomProps extends IProps {
   color: string;
   icon: ReactNode;
-  title: string;
+  title?: string;
 }
 
 export const CustomButton: FC<ICustomButtomProps> = (props: ICustomButtomProps) => {
   return (
     <Button variant="contained" sx={{ m: 2, borderRadius: 4, backgroundColor: props.color, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-      <Typography variant="body2">{props.title} </Typography>
+      {props.title && <Typography variant="body2">{props.title} </Typography>}
       {props.icon}
     </Button>
   );
