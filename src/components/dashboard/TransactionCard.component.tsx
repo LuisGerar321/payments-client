@@ -24,10 +24,12 @@ export const TransactionCard: FC<ITransactionsProps> = (props: ITransactionsProp
     <Card
       sx={{
         width: {
-          xs: "200px",
+          xs: "100px",
+          sm: "200px",
         },
         height: {
-          xs: "260px",
+          xs: "100px",
+          sm: "260px",
         },
         m: 4,
         backgroundImage: gradientString,
@@ -38,6 +40,7 @@ export const TransactionCard: FC<ITransactionsProps> = (props: ITransactionsProp
       }}
     >
       <CardHeader
+        sx={{ display: { xs: "none", md: "block" } }}
         avatar={
           <Avatar sx={{ backgroundColor: iconColor, borderRadius: 2, height: iconSize, width: iconSize }} variant="rounded">
             {icon}
