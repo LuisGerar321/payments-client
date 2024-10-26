@@ -104,9 +104,9 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
           </Grid>
         </Grid>
       </Paper>
-      <TransactionFormDashboard type={ETransactionType.ADD}></TransactionFormDashboard>
-      <TransactionFormDashboard type={ETransactionType.PAY}></TransactionFormDashboard>
-      <TransactionFormDashboard type={ETransactionType.EXTERNAL_PAYMENT}></TransactionFormDashboard>
+      <TransactionFormDashboard></TransactionFormDashboard>
+      {/* <TransactionFormDashboard type={ETransactionType.PAY}></TransactionFormDashboard>
+      <TransactionFormDashboard type={ETransactionType.EXTERNAL_PAYMENT}></TransactionFormDashboard> */}
     </>
   );
 };

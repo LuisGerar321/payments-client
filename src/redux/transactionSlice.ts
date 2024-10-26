@@ -4,8 +4,10 @@ import { EAlertState, ETransactionSection, ETransactionType, IAlert, ITransactio
 const initialState: ITransactionState = {
   section: ETransactionSection.RECEIVED,
   createATransaction: {
+    step: 1,
     state: false,
     type: ETransactionType.ADD,
+    pendingTransactionId: null,
     alert: {
       severity: EAlertState.INFO,
       message: "",
@@ -28,6 +30,7 @@ const transactionsSlice = createSlice({
     updateTransactionSection(state, action: PayloadAction<ETransactionSection>) {
       state.section = action.payload;
     },
+
     updateTransactionCreate(state, action: PayloadAction<{ state: boolean; type: ETransactionType }>) {
       state.createATransaction.state = action.payload.state;
       state.createATransaction.type = action.payload.type;
@@ -37,8 +40,25 @@ const transactionsSlice = createSlice({
       state.createATransaction.alert.severity = action.payload.severity;
       state.createATransaction.alert.message = action.payload.message;
     },
+
+    updateTransactionCreatePendingId(state, action: PayloadAction<number>) {
+      state.createATransaction.pendingTransactionId = action.payload;
+    },
+    updateTransactionCreateStep(state, action: PayloadAction<number>) {
+      state.createATransaction.step = action.payload;
+    },
+
+    resetTransactionState: () => initialState,
   },
 });
 
-export const { updateTransactionList, updateTransactionSection, updateTransactionCreate, updateTransactionCreateAlert } = transactionsSlice.actions;
+export const {
+  updateTransactionList,
+  updateTransactionSection,
+  updateTransactionCreate,
+  updateTransactionCreateAlert,
+  updateTransactionCreatePendingId,
+  updateTransactionCreateStep,
+  resetTransactionState,
+} = transactionsSlice.actions;
 export default transactionsSlice.reducer;

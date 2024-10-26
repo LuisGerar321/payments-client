@@ -78,9 +78,11 @@ export interface IAlert {
 export interface ITransactionState {
   section: ETransactionSection;
   createATransaction: {
+    step: number;
     state: boolean;
     type: ETransactionType;
     alert: IAlert;
+    pendingTransactionId: number | null;
   };
   transactions: {
     sent: ITransaction[];

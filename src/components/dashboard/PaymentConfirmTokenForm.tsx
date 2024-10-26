@@ -1,19 +1,27 @@
-import { Box, CircularProgress, Divider, IconButton, TextField, Toolbar, Typography } from "@mui/material";
+import { Box, CircularProgress, IconButton, TextField } from "@mui/material";
 import gateway from "../../config/gateway";
 import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
 import { EAlertState, ETransactionType } from "../../interfaces";
-import { updateTransactionCreate, updateTransactionCreateAlert } from "../../redux/transactionSlice";
-import { AppDispatch } from "../../redux/store";
-import { useDispatch } from "react-redux";
+import { resetTransactionState, updateTransactionCreate, updateTransactionCreateAlert } from "../../redux/transactionSlice";
+import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import { isAxiosError } from "axios";
+import { BaseGradientCard } from "../commons/BaseGradientCard";
+import Lottie from "lottie-react";
+import animationPay from "../../assets/lotties/animationPay.json";
+import { config } from "../../config";
+import { HeaderText } from "../commons/HeaderText";
+
+const { palleteColor } = config;
 
 export const PaymentConfirmTokenForm = () => {
   const token = localStorage.getItem("token");
   const dispatch: AppDispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [paymentToken, setPaymentToken] = useState("");
-  const [pendingTransactionId, setPendingTransactionId] = useState(null);
+  const { pendingTransactionId } = useSelector((state: RootState) => state?.transaction.createATransaction);
+
   const handleTokenChange = (event: React.ChangeEvent<HTMLInputElement>) => setPaymentToken(event.target.value);
 
   const handleConfirmPayment = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,6 +51,7 @@ export const PaymentConfirmTokenForm = () => {
     } catch (error) {
       let errorMessage = "Something wrong creating your Payment";
       console.error(error);
+      dispatch(resetTransactionState());
 
       if (isAxiosError(error)) errorMessage = `${errorMessage} : ${error.response?.data?.message}  ${error.response?.data?.details?.message}`;
 
@@ -64,9 +73,11 @@ export const PaymentConfirmTokenForm = () => {
   };
 
   return (
-    <>
+    <BaseGradientCard backgroundColor={palleteColor.secondaryGradient}>
+      <Lottie animationData={animationPay} style={{ width: "200px", height: "200px", margin: "0 auto 0 auto" }}></Lottie>
+      <HeaderText primary="Payment" secondary="Token Verification 2fa"></HeaderText>
+
       <Box component="form" onSubmit={handleConfirmPayment} sx={{ display: "flex", flexDirection: "column" }}>
-        <h2>Token Verification</h2>
         <TextField name="paymentToken" value={paymentToken} onChange={handleTokenChange} sx={{ m: "auto" }} id="token-basic" label="Token" variant="standard" />
         {isLoading ? (
           <CircularProgress sx={{ margin: "auto" }} />
@@ -76,6 +87,6 @@ export const PaymentConfirmTokenForm = () => {
           </IconButton>
         )}
       </Box>
-    </>
+    </BaseGradientCard>
   );
 };
