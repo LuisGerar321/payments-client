@@ -15,6 +15,8 @@ export const ClientMenu: FC<IClientMenuProps> = (props: IClientMenuProps) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
     setAnchorEl(null);
   };
 

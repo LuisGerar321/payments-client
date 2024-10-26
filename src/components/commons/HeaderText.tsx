@@ -8,12 +8,13 @@ const { palleteColor } = config;
 interface HeaderTextProps extends IProps {
   primary: string;
   secondary?: string;
+  color?: string[];
 }
 
-export const HeaderText: FC<HeaderTextProps> = ({ primary, secondary }: HeaderTextProps) => {
+export const HeaderText: FC<HeaderTextProps> = ({ primary, secondary, color }: HeaderTextProps) => {
   return (
     <>
-      <GradientTypography sx={{}} color={palleteColor.primaryGradient.slice(0, 2)} fontWeight="bold" variant="h1" fontSize={40} textAlign="center">
+      <GradientTypography sx={{}} color={color ? color.slice(0, 2) : palleteColor.primaryGradient.slice(0, 2)} fontWeight="bold" variant="h1" fontSize={40} textAlign="center">
         {primary}
       </GradientTypography>
       {secondary && (
