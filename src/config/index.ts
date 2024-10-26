@@ -10,6 +10,8 @@ export const config = {
     dark: "#16304E",
     primaryGradient: ["#89B4EC", "#BAC2EC", "#F2D3EE"],
     secondaryGradient: ["#FFA997", "#FFC099", "#FFD79A"],
+    alternativeIcon: "#67C98F",
+    alternativeGradient: ["#A0DCBD", "#CEE8B7", "#FDF2B3"],
   },
   appName: "Villet",
 };

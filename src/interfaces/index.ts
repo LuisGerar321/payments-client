@@ -74,6 +74,10 @@ export interface ITransaction {
 
 export interface ITransactionState {
   section: ETransactionSection;
+  createATransaction: {
+    state: boolean;
+    type: ETransactionType;
+  };
   transactions: {
     sent: ITransaction[];
     received: ITransaction[];
