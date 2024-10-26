@@ -18,6 +18,7 @@ export const ListTransaction: FC<IListTransactionProps> = (props: IListTransacti
   const { transactions, section } = useSelector((state: RootState) => state.transaction);
   const isReceived = section === ETransactionSection.RECEIVED;
   const transactionList = isReceived ? transactions.received : transactions.sent;
+  const changes = useSelector((state: RootState) => state.transaction);
 
   useEffect(() => {
     gateway
@@ -39,7 +40,7 @@ export const ListTransaction: FC<IListTransactionProps> = (props: IListTransacti
       })
       .catch((err) => {})
       .finally(() => {});
-  }, [token]);
+  }, [token, changes]);
 
   return (
     <Box
