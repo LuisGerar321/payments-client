@@ -72,7 +72,7 @@ export interface ITransaction {
   sender: IClientBasicInfo;
 }
 export interface IAlert {
-  severity: EAlertState;
+  severity: EAlertState | null;
   message: string;
 }
 export interface ITransactionState {

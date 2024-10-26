@@ -9,7 +9,7 @@ const initialState: ITransactionState = {
     type: ETransactionType.ADD,
     pendingTransactionId: null,
     alert: {
-      severity: EAlertState.INFO,
+      severity: null,
       message: "",
     },
   },
