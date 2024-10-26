@@ -21,6 +21,7 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
 
   const dispatch: AppDispatch = useDispatch();
   const { balance, sent, received } = useSelector((state: RootState) => state.balance);
+  const { createATransaction } = useSelector((state: RootState) => state.transaction);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -41,7 +42,7 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [token]);
+  }, [token, createATransaction]);
 
   return (
     <>

@@ -98,7 +98,7 @@ export enum EAlertState {
 }
 
 export interface ITransactionFormData {
-  amount: number | null;
+  amount: number;
   externalPaymentRef: string;
   recipientId: number | null;
 }

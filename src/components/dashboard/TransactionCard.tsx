@@ -35,7 +35,7 @@ export const TransactionCardDashboard: FC<ITransactionsProps> = (props: ITransac
         backgroundImage: gradientString,
         borderRadius: 7,
         boxShadow: "1px 2px 8px rgba(0, 0, 0, 0.2)",
-        pl: 3,
+        // pl: 3,
       }}
     >
       <CardHeader
@@ -47,17 +47,17 @@ export const TransactionCardDashboard: FC<ITransactionsProps> = (props: ITransac
         }
       />
       <CardContent>
-        <Typography color="white" variant="h5" sx={{ mt: -1 }} fontWeight="bold">
+        <Typography color="white" variant="h5" sx={{ ml: "auto", mr: "auto" }} fontWeight="bold" fontSize={{ xs: 15, md: 24 }} textAlign="left">
           {title}
         </Typography>
         <Box sx={{ mt: 4, display: "flex", alignItems: "center" }}>
           {!isLoading && (
-            <Typography color={dark} fontWeight="bold" variant="h5">
+            <Typography fontSize={{ xs: 10, md: 20 }} color={dark} fontWeight="bold" variant="h5">
               $
             </Typography>
           )}
 
-          <Typography color={dark} fontWeight="bold" variant="h3">
+          <Typography color={dark} fontWeight="bold" variant="h3" textAlign="center" fontSize={{ xs: 24, md: 36 }}>
             {isLoading ? <Skeleton width={120} /> : amount}
           </Typography>
         </Box>

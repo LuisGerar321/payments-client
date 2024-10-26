@@ -5,7 +5,7 @@ import { TransitionProps } from "@mui/material/transitions";
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { resetTransactionState, updateTransactionCreate } from "../../redux/transactionSlice";
+import { resetTransactionState, updateTransactionCreate, updateTransactionCreateAlert } from "../../redux/transactionSlice";
 import { PaymentTransactionLayout } from "./PaymentTransactionFormLayout";
 import { AddFundsForm } from "./AddFundsForm";
 
@@ -44,7 +44,6 @@ export const TransactionFormDashboard: FC<ITransactionFormProps> = (props: ITran
               type: type,
             }),
           );
-          dispatch(resetTransactionState());
         }}
         PaperProps={{ style: { backgroundColor: "transparent", boxShadow: "none" } }}
       >
@@ -53,7 +52,7 @@ export const TransactionFormDashboard: FC<ITransactionFormProps> = (props: ITran
       </Dialog>
 
       <Snackbar open={severity !== null}>
-        <Alert onClose={() => console.log("closed")} severity={severity ? severity : "info"}>
+        <Alert onClose={() => dispatch(updateTransactionCreateAlert({ severity: null, message: "" }))} severity={severity ? severity : "info"}>
           {message}
         </Alert>
       </Snackbar>
