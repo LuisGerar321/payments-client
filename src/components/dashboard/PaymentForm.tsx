@@ -20,13 +20,13 @@ export const PaymentForm = () => {
   const token = localStorage.getItem("token");
   const dispatch: AppDispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isExternal, setIsExternal] = useState(false);
+  const [isExternal, setIsExternal] = useState(true);
   const [selectedUser, setSelectedUser] = useState("");
   const [paymentformData, setPaymentFormData] = useState<ITransactionFormData>(initPaymentformData);
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsExternal(event.target.checked);
-  };
+  // const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setIsExternal(event.target.checked);
+  // };
 
   const handleChangePayment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPaymentFormData({ ...paymentformData, [e.target.name]: e.target.value });
@@ -87,7 +87,7 @@ export const PaymentForm = () => {
       <Lottie animationData={animationPay} style={{ width: "200px", height: "200px", margin: "0 auto 0 auto" }}></Lottie>
       <HeaderText primary="Payment" secondary="How much mony do you want to pay?"></HeaderText>
       <Box component="form" onSubmit={handlePayment} sx={{ display: "flex", flexDirection: "column" }}>
-        <FormControlLabel sx={{ m: "auto" }} label={"External Payment"} control={<Checkbox checked={isExternal} onChange={handleCheckboxChange} />} />
+        {/* <FormControlLabel sx={{ m: "auto" }} label={"External Payment"} control={<Checkbox checked={isExternal} onChange={handleCheckboxChange} />} /> */}
         {!isExternal ? (
           <FormControl sx={{ m: "auto", minWidth: 120 }}>
             <InputLabel id="user-select-label">User</InputLabel>
