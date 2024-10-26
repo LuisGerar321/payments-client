@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export interface IProps {
   children?: ReactNode;
-  sx?: Object;
+  // sx?: Object;
 }
 
 export interface IMailerSendEmail {
@@ -71,12 +71,16 @@ export interface ITransaction {
   recipient: IClientBasicInfo;
   sender: IClientBasicInfo;
 }
-
+export interface IAlert {
+  severity: EAlertState;
+  message: string;
+}
 export interface ITransactionState {
   section: ETransactionSection;
   createATransaction: {
     state: boolean;
     type: ETransactionType;
+    alert: IAlert;
   };
   transactions: {
     sent: ITransaction[];
@@ -87,4 +91,11 @@ export interface ITransactionState {
 export enum EAlertState {
   SUCCESS = "success",
   ERROR = "error",
+  INFO = "info",
+}
+
+export interface ITransactionFormData {
+  amount: number | null;
+  externalPaymentRef: string;
+  recipientId: number | null;
 }
