@@ -88,6 +88,7 @@ export interface ITransactionState {
     sent: ITransaction[];
     received: ITransaction[];
   };
+  changes: boolean;
 }
 
 export enum EAlertState {

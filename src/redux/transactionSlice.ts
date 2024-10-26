@@ -17,6 +17,7 @@ const initialState: ITransactionState = {
     sent: [],
     received: [],
   },
+  changes: false,
 };
 
 const transactionsSlice = createSlice({
@@ -48,7 +49,14 @@ const transactionsSlice = createSlice({
       state.createATransaction.step = action.payload;
     },
 
-    resetTransactionState: () => initialState,
+    changes(state) {
+      state.changes = !state.changes;
+    },
+
+    resetTransactionState(state) {
+      const currentSection = state.section;
+      Object.assign(state, initialState, { section: currentSection });
+    },
   },
 });
 
@@ -60,5 +68,6 @@ export const {
   updateTransactionCreatePendingId,
   updateTransactionCreateStep,
   resetTransactionState,
+  changes,
 } = transactionsSlice.actions;
 export default transactionsSlice.reducer;

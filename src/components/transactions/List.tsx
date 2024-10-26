@@ -5,7 +5,7 @@ import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemButton, ListItemTe
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import gateway from "../../config/gateway";
-import { updateTransactionList } from "../../redux/transactionSlice";
+import { updateTransactionCreate, updateTransactionCreatePendingId, updateTransactionCreateStep, updateTransactionList } from "../../redux/transactionSlice";
 import stringToColor from "string-to-color";
 
 interface IListTransactionProps extends IProps {}
@@ -18,7 +18,7 @@ export const ListTransaction: FC<IListTransactionProps> = (props: IListTransacti
   const { transactions, section } = useSelector((state: RootState) => state.transaction);
   const isReceived = section === ETransactionSection.RECEIVED;
   const transactionList = isReceived ? transactions.received : transactions.sent;
-  const changes = useSelector((state: RootState) => state.transaction);
+  const { createATransaction } = useSelector((state: RootState) => state.transaction);
 
   useEffect(() => {
     gateway
@@ -40,7 +40,7 @@ export const ListTransaction: FC<IListTransactionProps> = (props: IListTransacti
       })
       .catch((err) => {})
       .finally(() => {});
-  }, [token, changes]);
+  }, [token, createATransaction]);
 
   return (
     <Box
@@ -93,6 +93,11 @@ export const ListTransaction: FC<IListTransactionProps> = (props: IListTransacti
                   "&:hover": {
                     backgroundColor: "white",
                   },
+                }}
+                onClick={() => {
+                  dispatch(updateTransactionCreateStep(2));
+                  dispatch(updateTransactionCreatePendingId(transaction.id));
+                  dispatch(updateTransactionCreate({ state: true, type: ETransactionType.PAY }));
                 }}
               >
                 <ListItemAvatar>
