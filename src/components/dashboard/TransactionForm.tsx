@@ -26,6 +26,12 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+interface FormData {
+  amount: number | null;
+  externalPaymentRef: string;
+  recipientId: number | null;
+}
+
 export const TransactionFormDashboard: FC<ITransactionFormProps> = (props: ITransactionFormProps) => {
   const isAddType = props.type === ETransactionType.ADD;
   const isPayment = props.type === ETransactionType.PAY;
@@ -38,7 +44,42 @@ export const TransactionFormDashboard: FC<ITransactionFormProps> = (props: ITran
   const { state, type } = createATransaction;
   const isOpen = state && type === props.type;
 
-  const users = new Array(20).fill("Luis Gerardo Camara Salinas");
+  const [paymentformData, setPaymentFormData] = useState<FormData>({ amount: null, externalPaymentRef: "", recipientId: null });
+
+  const handleChangePayment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPaymentFormData({ ...paymentformData, [e.target.name]: e.target.value });
+  };
+
+  const handleAddFunds = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const payload = {
+      type,
+      amount: paymentformData.amount,
+    };
+    console.log(payload);
+  };
+
+  const handlePayment = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    let payload;
+    if (isExternal) {
+      payload = {
+        type: ETransactionType.EXTERNAL_PAYMENT,
+        externalPaymentRef: paymentformData.externalPaymentRef as string,
+        amount: paymentformData.amount,
+      };
+    } else {
+      payload = {
+        type: ETransactionType.PAY,
+        recipientId: selectedUser,
+        amount: paymentformData.amount,
+      };
+    }
+
+    console.log(payload);
+  };
+
+  const users = new Array(20).fill({ id: 1, name: "luis Gerardo" });
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsExternal(event.target.checked);
@@ -62,33 +103,71 @@ export const TransactionFormDashboard: FC<ITransactionFormProps> = (props: ITran
   );
 
   const addForm = (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box component="form" onSubmit={handleAddFunds} sx={{ display: "flex", flexDirection: "column" }}>
       {header("Add founds", "How much money do you want to add?")}
-      <TextField sx={{ m: "auto" }} id="standard-basic" label="Amount $" variant="standard" focused color="secondary" />
+      <TextField
+        name="amount"
+        value={paymentformData.amount}
+        onChange={handleChangePayment}
+        required
+        sx={{ m: "auto" }}
+        id="standard-basic"
+        label="Amount $"
+        variant="standard"
+        focused
+        color="secondary"
+        type="number"
+      />
+      <IconButton type="submit" sx={{ m: "auto" }}>
+        <SendIcon sx={{ color: palleteColor.primaryIcon }}></SendIcon>
+      </IconButton>
     </Box>
   );
 
-  const ExternalPayForm = <Box></Box>;
-
   const PayForm = (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box component="form" onSubmit={handlePayment} sx={{ display: "flex", flexDirection: "column" }}>
       {header("Payment", "How much money do you want to Pay?")}
       <FormControlLabel sx={{ m: "auto" }} label={"External Payment"} control={<Checkbox checked={isExternal} onChange={handleCheckboxChange} />} />
       {!isExternal ? (
         <FormControl sx={{ m: "auto", minWidth: 120 }}>
           <InputLabel id="user-select-label">User</InputLabel>
-          <Select labelId="user-select-label" id="user-select" value={selectedUser} label="User" onChange={handleUserChange}>
+          <Select name="recipientId" labelId="user-select-label" id="user-select" value={selectedUser} label="User" onChange={handleUserChange}>
             {users.map((username) => (
-              <MenuItem key={username} value={username}>
-                {username}
+              <MenuItem key={username.id} value={username.id}>
+                {username.name}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
       ) : (
-        <TextField sx={{ m: "auto" }} id="reference-basic" label="Reference Number" variant="standard" focused color="secondary" />
+        <TextField
+          name="externalPaymentRef"
+          value={paymentformData.externalPaymentRef}
+          onChange={handleChangePayment}
+          sx={{ m: "auto" }}
+          id="reference-basic"
+          label="Reference Number"
+          variant="standard"
+          focused
+          color="secondary"
+        />
       )}
-      <TextField sx={{ m: "auto" }} id="amount-basic" label="Amount $" variant="standard" focused color="secondary" />
+      <TextField
+        name="amount"
+        value={paymentformData.amount}
+        onChange={handleChangePayment}
+        type="number"
+        sx={{ m: "auto" }}
+        id="amount-basic"
+        label="Amount $"
+        variant="standard"
+        focused
+        color="secondary"
+      />
+
+      <IconButton type="submit" sx={{ m: "auto" }}>
+        <SendIcon sx={{ color: palleteColor.primaryIcon }}></SendIcon>
+      </IconButton>
     </Box>
   );
 
@@ -127,9 +206,6 @@ export const TransactionFormDashboard: FC<ITransactionFormProps> = (props: ITran
         <Lottie animationData={currAnimation} style={{ width: "200px", height: "200px", margin: "0 auto 0 auto" }}></Lottie>
         {isAddType && addForm}
         {isPayment && PayForm}
-        <IconButton sx={{ m: "auto" }}>
-          <SendIcon sx={{ color: palleteColor.primaryIcon }}></SendIcon>
-        </IconButton>
       </Card>
     </Dialog>
   );
