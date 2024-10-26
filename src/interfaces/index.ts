@@ -83,3 +83,8 @@ export interface ITransactionState {
     received: ITransaction[];
   };
 }
+
+export enum EAlertState {
+  SUCCESS = "success",
+  ERROR = "error",
+}
