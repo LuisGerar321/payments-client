@@ -114,6 +114,7 @@ export const TransactionFormDashboard: FC<ITransactionFormProps> = (props: ITran
           },
           height: {
             xs: "100vh",
+            md: "600px",
           },
           display: "flex",
           flexDirection: "column",
