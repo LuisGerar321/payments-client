@@ -1,8 +1,25 @@
-# Getting Started with Create React App
+# Getting Started with Create Ville (Virtual Wallet) App
+
+## Try the app in your navigator or phone for free
+
+### Instructions
+
+1. **Follow the https link:** [MVP Virtual Wallet APP](https://www.luis.payments.minideskdev.com).
+2. **Create a new account:**
+   - Important: Use your **citizen identity document number** as the password.
+3. **Sign in:**
+   - Log in using your email and **citizen identity document number**.
+4. **Add funds:**
+   - Deposit money into your account.
+5. **Make a payment for an external product:**
+   - Use the provided external reference.
+6. **Pay an amount for an internal user:**
+   - _Coming Soon!_
+7. **Repeat the process as needed.**
 
 ## Watch Full App Demo
 
-[App Demo](https://www.webmobilefirst.com/en/screencasts/hA5hMnvpBJ/)
+[Demo Virtual Wallet APP - Watch Video](https://www.loom.com/share/8a5399dfe6b24361a66743a5d64486bc?sid=a3a2e4d4-406f-4115-b3cb-6c67a86ad223)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
