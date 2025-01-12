@@ -14,7 +14,7 @@ interface ITransactionsProps extends IProps {
 
 const { dark } = config.palleteColor;
 
-export const TransactionCardDashboard: FC<ITransactionsProps> = (props: ITransactionsProps) => {
+export const TransactionCardPayments: FC<ITransactionsProps> = (props: ITransactionsProps) => {
   const { gradientColor, icon, iconColor, title, amount, isLoading } = props;
 
   const gradientString = `linear-gradient(to bottom, ${gradientColor.map((color) => color).join(", ")})`;

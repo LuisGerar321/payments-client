@@ -9,11 +9,11 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { updateTransactionCreate } from "../../redux/transactionSlice";
 
-interface IDashboardButtomsProps extends IProps {}
+interface IPaymentsButtomsProps extends IProps {}
 
 const { primary, secondary } = config.palleteColor;
 const sx = { display: "flex", justifyContent: "center", alignItems: "center" };
-export const ButtomDashboard: FC<IDashboardButtomsProps> = (props: IDashboardButtomsProps) => {
+export const ButtomPayments: FC<IPaymentsButtomsProps> = (props: IPaymentsButtomsProps) => {
   const dispatch: AppDispatch = useDispatch();
   return (
     <Grid container>

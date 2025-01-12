@@ -2,21 +2,21 @@ import { FC, useEffect, useState } from "react";
 import { ETransactionType, IProps, ISelfBalance } from "../../interfaces";
 import { Box, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import { config } from "../../config";
-import { TransactionCardDashboard } from "./TransactionCard";
+import { TransactionCardPayments } from "./TransactionCard";
 import SentMoneyIcon from "@mui/icons-material/SwipeUp";
 import ReceiveMoneyIcon from "@mui/icons-material/SwipeDownAlt";
-import { ButtomDashboard } from "./Buttom";
+import { ButtomPayments } from "./Buttom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import gateway from "../../config/gateway";
 import { updateBalance } from "../../redux/balanceSlice";
-import { TransactionFormDashboard } from "./TransactionForm";
+import { TransactionFormPayments } from "./TransactionForm";
 
-interface IDashboardProps extends IProps {}
+interface IPaymentsProps extends IProps {}
 
 const { primaryGradient, secondaryGradient, primaryIcon, secondaryIcon, dark } = config.palleteColor;
 
-export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
+export const Payments: FC<IPaymentsProps> = (props: IPaymentsProps) => {
   const token = localStorage.getItem("token");
 
   const dispatch: AppDispatch = useDispatch();
@@ -86,13 +86,13 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
             </Box>
 
             <Box mt="auto" mr="auto" ml="auto">
-              <ButtomDashboard />
+              <ButtomPayments />
             </Box>
           </Grid>
 
           <Grid item md={8} xs={12} display="flex" alignItems="center">
             <Box display="flex" width="100%" height="70%" sx={{ justifyContent: "center" }}>
-              <TransactionCardDashboard
+              <TransactionCardPayments
                 isLoading={isLoading}
                 title={"Received"}
                 amount={received}
@@ -100,14 +100,14 @@ export const Dashboard: FC<IDashboardProps> = (props: IDashboardProps) => {
                 icon={<ReceiveMoneyIcon fontSize="large"></ReceiveMoneyIcon>}
                 iconColor={primaryIcon}
               />
-              <TransactionCardDashboard title={"Sent"} amount={sent} gradientColor={secondaryGradient} icon={<SentMoneyIcon fontSize="large"></SentMoneyIcon>} iconColor={secondaryIcon} />
+              <TransactionCardPayments title={"Sent"} amount={sent} gradientColor={secondaryGradient} icon={<SentMoneyIcon fontSize="large"></SentMoneyIcon>} iconColor={secondaryIcon} />
             </Box>
           </Grid>
         </Grid>
       </Paper>
-      <TransactionFormDashboard></TransactionFormDashboard>
-      {/* <TransactionFormDashboard type={ETransactionType.PAY}></TransactionFormDashboard>
-      <TransactionFormDashboard type={ETransactionType.EXTERNAL_PAYMENT}></TransactionFormDashboard> */}
+      <TransactionFormPayments></TransactionFormPayments>
+      {/* <TransactionFormPayments type={ETransactionType.PAY}></TransactionFormPayments>
+      <TransactionFormPayments type={ETransactionType.EXTERNAL_PAYMENT}></TransactionFormPayments> */}
     </>
   );
 };

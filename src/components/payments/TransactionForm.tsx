@@ -20,7 +20,7 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export const TransactionFormDashboard: FC<ITransactionFormProps> = (props: ITransactionFormProps) => {
+export const TransactionFormPayments: FC<ITransactionFormProps> = (props: ITransactionFormProps) => {
   const { createATransaction } = useSelector((state: RootState) => state.transaction);
   const { state, type } = createATransaction;
   const isAddType = type === ETransactionType.ADD;

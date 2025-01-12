@@ -1,7 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import { config } from "./config";
 
-import { Dashboard } from "./components/dashboard/Layout";
+import { Payments } from "./components/payments/Layout";
 import { MenuLayout } from "./components/menu/Layout";
 import { TransactionLayout } from "./components/transactions/Layout";
 import { AuthLayout } from "./components/auth/Layout";
@@ -31,7 +31,7 @@ function App() {
             <MenuLayout></MenuLayout>
           </Grid>
           <Grid item xs={12} md={10}>
-            <Dashboard></Dashboard>
+            <Payments></Payments>
             <TransactionLayout></TransactionLayout>
           </Grid>
         </Grid>
